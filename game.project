@@ -1,0 +1,81 @@
+[project]
+title = Kai-Pong
+version = 1.0
+dependencies = 
+
+[bootstrap]
+main_collection = /pong/pong.collectionc
+
+[input]
+game_binding = /input/game.input_bindingc
+
+[display]
+width = 320
+height = 240
+
+[physics]
+scale = 0.02
+world_count = 1
+
+[script]
+shared_state = 1
+
+[android]
+package = com.britzl.pong
+
+[ios]
+bundle_identifier = com.britzl.pong
+
+[osx]
+bundle_identifier = com.britzl.pong
+
+[native_extension]
+app_manifest = /generated.appmanifest
+
+[html5]
+scale_mode = fit
+heap_size = 20
+show_made_with_defold = 0
+show_fullscreen_button = 0
+
+[resource]
+max_resources = 64
+
+[collection]
+max_instances = 20
+
+[sound]
+max_sound_data = 0
+max_sound_buffers = 0
+max_sound_sources = 0
+max_sound_instances = 0
+
+[sprite]
+max_count = 10
+
+[spine]
+max_count = 0
+
+[model]
+max_count = 0
+
+[label]
+max_count = 1
+
+[particle_fx]
+max_count = 0
+max_particle_count = 0
+
+[collection_proxy]
+max_count = 1
+
+[collectionfactory]
+max_count = 0
+
+[factory]
+max_count = 2
+
+[graphics]
+default_texture_min_filter = nearest
+default_texture_mag_filter = nearest
+
