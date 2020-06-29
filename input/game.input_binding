@@ -1,36 +1,24 @@
 key_trigger {
-  input: KEY_UP
-  action: "up"
+  input: KEY_LEFT
+  action: "left"
 }
 key_trigger {
-  input: KEY_DOWN
-  action: "down"
+  input: KEY_RIGHT
+  action: "right"
 }
 key_trigger {
-  input: KEY_W
-  action: "up"
+  input: KEY_KP_4
+  action: "left"
 }
 key_trigger {
-  input: KEY_S
-  action: "down"
+  input: KEY_KP_6
+  action: "right"
 }
 key_trigger {
-  input: KEY_KP_2
-  action: "down"
+  input: KEY_4
+  action: "left"
 }
 key_trigger {
-  input: KEY_KP_8
-  action: "up"
-}
-key_trigger {
-  input: KEY_2
-  action: "down"
-}
-key_trigger {
-  input: KEY_8
-  action: "up"
-}
-mouse_trigger {
-  input: MOUSE_BUTTON_1
-  action: "touch"
+  input: KEY_6
+  action: "right"
 }

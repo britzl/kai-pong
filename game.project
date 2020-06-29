@@ -10,12 +10,13 @@ main_collection = /pong/pong.collectionc
 game_binding = /input/game.input_bindingc
 
 [display]
-width = 320
-height = 240
+width = 240
+height = 320
 
 [physics]
 scale = 0.02
 world_count = 1
+debug = 0
 
 [script]
 shared_state = 1

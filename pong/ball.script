@@ -8,7 +8,7 @@ function init(self)
 	self.original_position = go.get_position()
 	
 	-- set an initial random direction of travel
-	self.direction = vmath.normalize(vmath.vector3(math.random(3, 7) * (math.random(0, 1) > 0.5 and -1 or 1), math.random(-1, 1), 0))
+	self.direction = vmath.normalize(vmath.vector3(math.random(-1, 1), math.random(3, 7) * (math.random(0, 1) > 0.5 and -1 or 1), 0))
 end
 
 function update(self, dt)
@@ -47,7 +47,7 @@ function on_message(self, message_id, message, sender)
 		-- collided with a paddle - add random adjustment to vertical direction
 		elseif message.group == hash("paddle") then
 			local dist = go.get_position(message.other_id) - go.get_position()
-			self.direction.y = self.direction.y - dist.y / 40
+			self.direction.x = self.direction.x - dist.x / 40
 			self.direction = vmath.normalize(self.direction)
 		end
 	end
