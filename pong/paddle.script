@@ -9,14 +9,20 @@ go.property("speed", vmath.vector3(120, 0, 0))
 local LEFT = hash("left")
 local RIGHT = hash("right")
 
+local WALL = hash("wall")
+local CONTACT_POINT_RESPONSE = hash("contact_point_response")
+
 function init(self)
 	-- acquire input if this paddle isn't controlled by the AI
 	if not self.ai then
 		msg.post(".", "acquire_input_focus")
+		collectgarbage('setpause', 100)
 	end
 	
 	-- pressed/released state of input actions
 	self.actions = {}
+
+	self.position = go.get_position()
 end
 
 function update(self, dt)
@@ -25,7 +31,7 @@ function update(self, dt)
 	if self.ai then
 		local ball_pos = go.get_position("ball")
 		local ball_direction = go.get("ball#script", "direction")
-		local my_pos = go.get_position()
+		local my_pos = self.position
 
 		-- only move the ai paddle when the ball is travelling towards the paddle
 		if (ball_pos.y < my_pos.y and ball_direction.y > 0) then
@@ -44,16 +50,19 @@ function update(self, dt)
 	end
 	-- move the paddle based on player/AI input
 	if self.actions[RIGHT] then
-		go.set_position(go.get_position() + self.speed * dt)
+		self.position = self.position + self.speed * dt
+		go.set_position(self.position)
 	elseif self.actions[LEFT] then
-		go.set_position(go.get_position() - self.speed * dt)
+		self.position = self.position - self.speed * dt
+		go.set_position(self.position)
 	end
 end
 
 function on_message(self, message_id, message, sender)
 	-- stop the paddle from going through the walls
-	if message_id == hash("contact_point_response") and message.group == hash("wall") then
-		go.set_position(go.get_position() + message.normal * message.distance)
+	if message_id == CONTACT_POINT_RESPONSE and message.group == WALL then
+		self.position = self.position + message.normal * message.distance
+		go.set_position(self.position)
 	end
 end
 

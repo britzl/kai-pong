@@ -1,6 +1,8 @@
 go.property("direction", vmath.vector3())
 go.property("speed", 200)
 
+local CONTACT_POINT_RESPONSE = hash("contact_point_response")
+
 function init(self)
 	math.randomseed(os.time())
 	
@@ -9,6 +11,8 @@ function init(self)
 	
 	-- set an initial random direction of travel
 	self.direction = vmath.normalize(vmath.vector3(math.random(-1, 1), math.random(3, 7) * (math.random(0, 1) > 0.5 and -1 or 1), 0))
+
+	self.position = go.get_position()
 end
 
 function update(self, dt)
@@ -16,13 +20,12 @@ function update(self, dt)
 	-- with the specified speed (pixels/second)
 	-- apply delta time for correct movement regardless
 	-- of framerate
-	local pos = go.get_position()
-	pos = pos + self.direction * self.speed * dt
-	go.set_position(pos)
+	self.position = self.position + self.direction * self.speed * dt
+	go.set_position(self.position)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("contact_point_response") then
+	if message_id == CONTACT_POINT_RESPONSE then
 		-- bounce on something above/below ball?
 		if message.normal.y ~= 0 then
 			self.direction.y = -self.direction.y
@@ -34,21 +37,23 @@ function on_message(self, message_id, message, sender)
 		end
 		
 		-- resolve collision by moving ball "out of" whatever it collided with
-		go.set_position(go.get_position() + message.normal * message.distance)
-		
+		self.position = self.position + message.normal * message.distance
+				
 		-- collided with player 1 goal - reset position and increase score
 		if message.group == hash("goalp1") then
-			go.set_position(self.original_position)
+			self.position = vmath.vector3(self.original_position)
 			msg.post("score", "increase_player1")
 		-- collided with player 2 goal - reset position and increase score
 		elseif message.group == hash("goalp2") then
-			go.set_position(self.original_position)
+			self.position = vmath.vector3(self.original_position)
 			msg.post("score", "increase_player2")
 		-- collided with a paddle - add random adjustment to vertical direction
 		elseif message.group == hash("paddle") then
-			local dist = go.get_position(message.other_id) - go.get_position()
+			local dist = go.get_position(message.other_id) - self.position
 			self.direction.x = self.direction.x - dist.x / 40
 			self.direction = vmath.normalize(self.direction)
 		end
+		go.set_position(self.position)
+		
 	end
 end

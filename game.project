@@ -1,7 +1,8 @@
 [project]
 title = Kai-Pong
 version = 1.0
-dependencies = 
+dependencies = https://github.com/britzl/defold-metrics/archive/1.0.0.zip
+bundle_resources = bundle
 
 [bootstrap]
 main_collection = /pong/pong.collectionc
