@@ -1,7 +1,7 @@
 [project]
 title = Kai-Pong
 version = 1.0
-dependencies = https://github.com/britzl/defold-metrics/archive/1.0.0.zip
+dependencies = https://github.com/britzl/defold-metrics/archive/1.2.0.zip
 bundle_resources = bundle
 
 [bootstrap]
@@ -13,6 +13,8 @@ game_binding = /input/game.input_bindingc
 [display]
 width = 240
 height = 320
+update_frequency = 30
+vsync = 0
 
 [physics]
 scale = 0.02
@@ -32,7 +34,7 @@ bundle_identifier = com.britzl.pong
 bundle_identifier = com.britzl.pong
 
 [native_extension]
-app_manifest = /generated.appmanifest
+app_manifest = /profiler.appmanifest
 
 [html5]
 scale_mode = fit

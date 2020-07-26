@@ -16,7 +16,6 @@ function init(self)
 	-- acquire input if this paddle isn't controlled by the AI
 	if not self.ai then
 		msg.post(".", "acquire_input_focus")
-		collectgarbage('setpause', 100)
 	end
 	
 	-- pressed/released state of input actions
