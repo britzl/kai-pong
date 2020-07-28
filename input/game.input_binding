@@ -16,5 +16,17 @@ key_trigger {
 }
 key_trigger {
   input: KEY_1
-  action: "profiler"
+  action: "toggle_profiler"
+}
+key_trigger {
+  input: KEY_3
+  action: "view_mode"
+}
+key_trigger {
+  input: KEY_BACKSPACE
+  action: "quit"
+}
+key_trigger {
+  input: KEY_2
+  action: "pause_profiler"
 }

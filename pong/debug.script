@@ -1,18 +1,48 @@
-local PROFILER = hash("profiler")
+local TOGGLE_PROFILER = hash("toggle_profiler")
+local PAUSE_PROFILER = hash("pause_profiler")
+local VIEW_MODE = hash("view_mode")
+
+local VIEW_MODES = {
+	profiler.VIEW_MODE_MINIMIZED,
+	profiler.VIEW_MODE_FULL,
+	profiler.VIEW_MODE_SAMPLES,
+	profiler.VIEW_MODE_COUNTERS,
+	profiler.VIEW_MODE_SCOPES,
+}
+
+local MODES = {
+	profiler.MODE_PAUSE,
+	profiler.MODE_SHOW_PEAK_FRAME,
+	profiler.MODE_RUN
+}
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	self.profiler = true
-	profiler.set_ui_view_mode(profiler.VIEW_MODE_MINIMIZED)
+	self.profiler = false
+	self.view_mode = 1
+	self.paused = false
+	collectgarbage('setpause',100)
 end
 
-function update(self, dt)
+--[[function update(self, dt)
 	collectgarbage()
-end
+end--]]
 
 function on_input(self, action_id, action)
-	if action_id == PROFILER and action.released then
-		profiler.enable_ui(self.profiler)
-		self.profiler = not self.profiler
+	if action.released then
+		if action_id == TOGGLE_PROFILER then
+			self.profiler = not self.profiler
+			profiler.enable_ui(self.profiler)
+			profiler.set_ui_view_mode(VIEW_MODES[self.view_mode])
+		elseif action_id == PAUSE_PROFILER then
+			self.paused = not self.paused
+			profiler.set_ui_mode(self.paused and profiler.MODE_PAUSE or profiler.MODE_RUN)
+		elseif action_id == VIEW_MODE then
+			self.view_mode = self.view_mode + 1
+			if self.view_mode > #VIEW_MODES then
+				self.view_mode = 1
+			end
+			profiler.set_ui_view_mode(VIEW_MODES[self.view_mode])
+		end
 	end
 end

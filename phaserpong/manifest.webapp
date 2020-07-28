@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "name": "Kai Pong",
-  "description": "A simple Pong game for Kai OS",
+  "name": "Kai Pong Phaser",
+  "description": "A simple Pong game for Kai OS using Phaser",
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
@@ -14,12 +14,11 @@
   },
   "locales": {
     "en-US": {
-      "name": "Kai Pong",
+      "name": "Kai Pong Phaser",
       "subtitle": "Short description for the user",
       "description": "Brief description of your app"
     }
   },
   "default_locale": "en-US",
-  "fullscreen": "true",
-  "precompile": [ "KaiPong_asmjs.js", "dmloader.js" ]
+  "fullscreen": "true"
 }
